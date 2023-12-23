@@ -2,6 +2,20 @@ from typing import List, TypedDict
 import random
 from card_constants import CardSuit, CardValue, CountValue
 
+class Card(tuple):
+
+    def __new__(cls, value, suit):
+        assert isinstance(value, CardValue)
+        assert isinstance(suit, CardSuit)
+        return tuple.__new__(cls, (value, suit))
+    
+    @property
+    def value(self):
+        return self[0]
+
+    @property
+    def suit(self):
+        return self[1]
 class DeckCountTable(TypedDict):
     card: Card
     total_count: int
@@ -14,11 +28,6 @@ class Deck:
         """Draws a card from the deck.
         """
         self.num_decks = num_decks
-        # self.count_table: DeckCountTable = {}
-        # self.ordered_list: List[Card] = []
-        # self.deck_position = 0
-        # self.running_count = 0
-        # self.true_count = 0
         self.shuffle()
 
     def shuffle(self) -> None:
@@ -58,32 +67,3 @@ class Deck:
 
     # returns true running count
 
-class Card(tuple):
-
-    def __new__(cls, value, suit):
-        assert isinstance(value, CardValue)
-        assert isinstance(suit, CardSuit)
-        return tuple.__new__(cls, (value, suit))
-    
-    @property
-    def value(self):
-        return self[0]
-
-    @property
-    def suit(self):
-        return self[1]
-# class Game:
-    
-    # Game.start() will start a game
-
-    # Dealer
-    # Players (1 for now)
-    # Deck
-
-    # Round.start()
-    # has a deck
-    # has a dealer
-    # has a player
-    
-    # start game
-    

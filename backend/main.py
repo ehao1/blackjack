@@ -4,12 +4,12 @@ from fastapi import FastAPI
 # from pydantic import BaseModel
 # ^^^ used for database management
 from fastapi.middleware.cors import CORSMiddleware
-from card_constants import Card, CardSuit, CardValue, CountValue
+from deck import Deck
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
@@ -20,16 +20,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DB: List[Card] = [
-    Card(CardValue.ACE, CardSuit.DIAMOND),
-    Card(CardValue.TWO, CardSuit.CLUB),
-    Card(CardValue.THREE, CardSuit.SPADE),
-
-]
 
 @app.get("/api")
 def read_root():
-    return DB
+    return "Test"
+
+@app.get("/drawCard")
+def drawCard():
+    deck = Deck(1)
+    return deck.draw()
 
 
 # @app.get("/items/{item_id}")
